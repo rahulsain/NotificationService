@@ -12,10 +12,13 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    // onMessageReceived is called when a notification is received in background thread
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
+
+        // starting foreground service
         Intent intent = new Intent(this, MyForegroundService.class);
         String msg;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -27,6 +30,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         Log.d("MyFirebaseMessaging", msg);
 
+
+        // sending toast on main ui thread
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {

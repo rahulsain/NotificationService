@@ -20,6 +20,7 @@ public class MyForegroundService extends Service {
         return null;
     }
 
+    // onStartCommand is creating a notification and starting foreground service (optional), replace your code
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -37,6 +38,7 @@ public class MyForegroundService extends Service {
         return START_NOT_STICKY;
     }
 
+    // creating notification channel for foreground service (optional), replace your code to sync
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(
