@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NotificationService</string>
+    <string name="msg_token_fmt">token is\n</string>
+</resources>
