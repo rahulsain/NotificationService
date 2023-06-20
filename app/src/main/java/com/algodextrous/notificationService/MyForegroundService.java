@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -34,6 +35,8 @@ public class MyForegroundService extends Service {
                 .setSmallIcon(R.drawable.baseline_notifications_24);
 
         startForeground(1, notification.build());
+
+        Log.v("MyForegroundService", "onStartCommandCalled");
 
         return START_NOT_STICKY;
     }

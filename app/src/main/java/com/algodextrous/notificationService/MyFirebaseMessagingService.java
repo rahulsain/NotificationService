@@ -34,16 +34,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
+        myEdit.putString("message", msg);
+        myEdit.apply();
 
         // sending toast on main ui thread
         String finalMsg = msg;
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                myEdit.putString("message", finalMsg);
-                myEdit.apply();
-
                 Toast.makeText(getApplicationContext(), finalMsg, Toast.LENGTH_SHORT).show();
             }
         });
