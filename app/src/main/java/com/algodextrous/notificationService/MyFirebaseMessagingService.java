@@ -1,6 +1,7 @@
 package com.algodextrous.notificationService;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,14 +29,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             startService(intent);
             msg = "onMessageReceivedLessThanOreo";
         }
+        msg = msg + " " + remoteMessage.getData();
         Log.d("MyFirebaseMessaging", msg);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
 
         // sending toast on main ui thread
+        String finalMsg = msg;
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                myEdit.putString("message", finalMsg);
+                myEdit.apply();
+
+                Toast.makeText(getApplicationContext(), finalMsg, Toast.LENGTH_SHORT).show();
             }
         });
     }
